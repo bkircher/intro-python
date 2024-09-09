@@ -1,17 +1,20 @@
 import sys
 
 import requests
+import asyncio
 
 from rich.console import Console
 from rich.markdown import Markdown
 
 console = Console()
 
-def main():
+async def main():
+    loop = asyncio.get_event_loop()
     args = sys.argv[-1]
-    resp = requests.get(args)
-    console.print(Markdown(resp.text))
+    resp = await loop.run_in_executor(None, requests.get, args)    
+    console.print(Markdown(str(resp.content)))
+    print("async request going on")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
