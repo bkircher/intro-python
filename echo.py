@@ -11,6 +11,7 @@ def main():
     args = sys.argv[-1]
     resp = requests.get(args)
     console.print(Markdown(resp.text))
+    print("very important change")
 
 
 if __name__ == "__main__":
